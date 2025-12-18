@@ -28,3 +28,25 @@ This scaffold includes:
 - `src/App.jsx` and `src/main.jsx`
 
 Character data is fetched from `https://uma-api-chi.vercel.app/`.
+
+Environment and Prediction API
+-----------------------------
+
+To enable the image prediction feature in `src/sections/Predict.jsx`, create a `.env` file in the project root with the variable `VITE_PREDICT_URL` pointing to your prediction endpoint. The form sends a POST `FormData` with the field name `image`.
+
+Example `.env` (do not commit your real keys):
+
+```
+VITE_PREDICT_URL=http://localhost:5000/predict
+```
+
+Expected API response
+---------------------
+
+The component expects the endpoint to return JSON. A minimal response shape is:
+
+```
+{ "result": "predicted-label-or-data" }
+```
+
+If `VITE_PREDICT_URL` is not set the app will fallback to a demo response.

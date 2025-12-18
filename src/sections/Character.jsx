@@ -11,7 +11,7 @@ export default function Character(){
     fetch('https://uma-api-chi.vercel.app/characters')
       .then(res=>res.json())
       .then(data=>{
-        if(Array.isArray(data)) setChars(data.slice(0, 24))
+        if(Array.isArray(data)) setChars(data.slice(0, 7))
       })
       .catch(()=>{})
       .finally(()=>setLoading(false))
@@ -25,7 +25,7 @@ export default function Character(){
 
         {loading ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-            {Array.from({length:8}).map((_,i)=> (
+            {Array.from({length:7}).map((_,i)=> (
               <div key={i} className="rounded-xl overflow-hidden">
                 <div className="h-44 skeleton rounded-xl"></div>
                 <div className="p-3">
@@ -48,6 +48,12 @@ export default function Character(){
                 </div>
                 <div className="p-3">
                   <h3 className="font-semibold text-sm truncate">{c.name}</h3>
+                  <div className="text-xs text-slate-500 mt-1 truncate">
+                    {(() => {
+                      const key = Object.keys(c).find(k => !['id','image','name'].includes(k) && c[k])
+                      return key ? String(c[key]) : `ID: ${c.id}`
+                    })()}
+                  </div>
                 </div>
               </motion.div>
             ))}
